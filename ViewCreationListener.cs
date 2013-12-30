@@ -124,13 +124,9 @@ namespace ItalicComments
             if (typeface.Style == FontStyles.Italic)
                 return;
 
-            // Add italic and (possibly) remove bold, and change to a font that has good looking
-            // italics (i.e. *not* Consolas)
-            var newTypeface = new Typeface(new FontFamily("Lucida Sans"), FontStyles.Italic, FontWeights.Normal, typeface.Stretch);
+            // Add italic and (possibly) remove bold
+            var newTypeface = new Typeface(typeface.FontFamily, FontStyles.Italic, FontWeights.Normal, typeface.Stretch);
             properties = properties.SetTypeface(newTypeface);
-
-            // Also, make the font size a little bit smaller than the normal text size
-            properties = properties.SetFontRenderingEmSize(textFormat.FontRenderingEmSize - 1);
 
             // And put it back in the format map
             formatMap.SetTextProperties(classification, properties);
@@ -146,9 +142,6 @@ namespace ItalicComments
             // If the opacity is already not 1.0, skip this
             if (brush == null || brush.Opacity != 1.0)
                 return;
-
-            // Make the font size a little bit smaller than the normal text size
-            properties = properties.SetFontRenderingEmSize(textFormat.FontRenderingEmSize - 1);
 
             // Set the opacity to be a bit lighter
             properties = properties.SetForegroundBrush(new SolidColorBrush(brush.Color) { Opacity = 0.7 });
